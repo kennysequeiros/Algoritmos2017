@@ -1,0 +1,38 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <cmath>
+
+using namespace std;
+int FAC(int n);
+int combi(int n,int r);
+void main()
+{
+    float c;
+	int n,r;
+	cout << "Ingrese n : " << endl;
+	cin >> n;
+		do{
+		cout << "Ingrese r : " << endl;
+		cin >> r;
+		}while(r>n);
+	c = combi(n,r);
+	cout << " La combinatoria es " << c << endl;
+    getch();
+}
+
+int FAC(int n)
+{
+	int i=1,p=1;
+	for(i=1;i<=n;i++){
+	p=p*i;
+	}
+	return (p);
+}
+
+int combi(int n,int r)
+{
+	int c;
+	c= FAC(n)/(FAC(r)*FAC(n-r));
+	return c;
+}

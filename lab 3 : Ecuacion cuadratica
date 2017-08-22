@@ -1,0 +1,54 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <cmath>
+
+using namespace std;
+void solucion(float a,float b,float c,float &X1,float &X2);
+void main()
+{
+	float a,b,c,X1,X2;
+	do{
+	cout << "Ingrese a " << endl;
+	cin >> a ;
+	}while(a==0);
+	cout << "Ingrese b: " << endl;
+	cin >> b;
+	cout << "Ingrese c: " << endl;
+	cin >> c;
+	solucion(a,b,c,X1,X2);
+	getch();
+}
+
+void solucion(float a,float b,float c,float &X1,float &X2)
+{
+	float D,Xr,Xi;
+	D = b*b-4*a*c;
+	if(D==0)
+	{
+		X1 = -b/2*a ;
+		X2 = -b/2*a ;
+		cout << "Solucion unica " << endl;
+		cout << "X1 = " << X1 << " y X2 = " << X2 << endl;
+	}
+	else
+	{
+		if(D>0)
+		{
+			X1 = (-b + sqrt(D))/2*a ;
+			X2 = (-b +sqrt(-D))/2*a ;
+			cout << "Dos soluciones " << endl ;
+			cout << "X1 = " << X1 << " y X2 = " << X2 << endl;
+		}
+		else
+		{
+			D = D * -1 ;
+			Xr = -b/2*a ;
+			Xi = sqrt(D) / 2*a ;
+			cout << "Dos soluciones imaginarias" << endl;
+			cout << " X1 = " << Xr << "+" << Xi << "i " << " y X2 = " << Xr << "-" << Xi << "i" << endl;
+		}
+			
+	}
+
+}

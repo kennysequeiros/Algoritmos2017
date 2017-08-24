@@ -1,0 +1,45 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "stdlib.h"
+#include "math.h"
+using namespace std;
+
+float binario_a_decimal(int a);
+
+void main()
+{
+	int nb, nd;
+	cout << "introduzca un numero binario: ";
+	cin >> nb;
+	nd = binario_a_decimal(nb);
+	cout << "\n";
+	cout << "el numero binario a decimal es: " << nd;
+
+
+
+	getch();
+}
+
+float binario_a_decimal(int a)
+{
+	float k = 2;
+	int s, p, x;
+	s = 0;
+	p = 0;
+	while (a>0)
+	{
+		x = a % 10;
+		if(x==1)
+		{
+			s = s + pow(k, p);
+			a = a / 10;
+	    }
+		else
+		{
+			a = a / 10;
+		}
+		p++;
+	}
+	return s;
+}

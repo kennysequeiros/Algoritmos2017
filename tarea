@@ -1,0 +1,72 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+void LITERAL(int d,int m,int a);
+int main()
+{
+	int dia,mes,anho;
+	cout<<"Ingrese fecha:   "<<endl;
+	do
+	{
+		cin>>dia;
+		if(dia<1 || dia>31)
+		cout<<"numero incorrecto vuelve a introducir"<<endl;
+
+	}while(dia<1 || dia>31);
+	    cout<<"mes";
+	    cin>>mes;
+		cout<<"ingrese anho";
+		cin>>anho;
+		LITERAL(dia,mes,anho);
+		getch();
+		return 0;
+}
+void LITERAL(int d,int m,int a)
+{
+	cout<<d<<"de";
+	switch(m)
+	{
+	case 1: 
+		cout<<"ENERO";
+		break;
+	case 2:
+		cout<<"FEBRERO";
+		break;
+	case 3:
+		cout<<"marzo";
+		break;
+	case 4: 
+		cout<<"abril";
+		break;
+	case 5: 
+		cout<<"mayo";
+		break;
+	case 6:
+		cout<<"junio";
+		break;
+	case 7:
+		cout<<"julio";
+		break;
+	case 8: 
+		cout<<"agosto";
+		break;
+	case 9:
+		cout<<"septiembre";
+		break;
+	case 10:
+		cout<<"octubre";
+		break;
+	case 11:
+		cout<<"noviembre";
+		break;
+	case 12:
+		cout<<"diciembre";
+		break;
+	default: 
+		cout<<"numero de mes inexistente "<<endl;
+	}
+
+
+}

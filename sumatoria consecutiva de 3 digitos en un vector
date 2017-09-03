@@ -1,0 +1,43 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define max 100
+
+using namespace std;
+
+void leer(float vec1[], int n);
+
+
+
+
+void main()
+{int n,i,j;
+float vec1[max],p;
+cout<<"ingrese el tamaño del vector"<<endl;
+cin>>n;
+cout<<endl<<"ingrese valores del vector"<<endl;
+leer(vec1,n);
+  
+
+
+j=0;
+while(j<n-2)
+{p=0;
+for(i=j;i<=j+2;i++)
+{p=p+vec1[i];
+}
+p=p/3;j++;
+cout<<"el promedio ["<<i<<"]es:"<<p<<endl;
+} 
+ 
+ 
+	getch();
+}
+//funciones
+
+void leer(float vec1[], int n)
+{int i;
+for(i=0;i<n;i++)
+cin>>vec1[i];
+
+}

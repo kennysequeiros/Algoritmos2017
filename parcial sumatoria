@@ -1,0 +1,32 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+int fac(int n);
+void main()
+{int n,i;
+float x,s,j;
+cout<<"ingrese un valor a n"<<endl;
+cin>>n;
+cout<<endl<<"ingrese un valor a x"<<endl;
+cin>>x;
+s=3; j=x;
+for(i=1;i<=n;i=i+2)
+{s=s-x/fac(i);
+x=x*j*j;
+x=x*-1;}
+cout<<"el valor de la sumatoria es"<<endl<<s;
+
+
+getch();}
+ 
+//funciones
+int fac(int n)
+{int i,r;
+r=1;
+for(i=1;i<=n;i++)
+{r=r*i;
+}
+return r;
+}

@@ -1,0 +1,54 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+using namespace std;
+#define max 10
+
+void cargar(int matriz[max][max],int n);
+void suma(int matriz[max][max],int matrix[max][max],int matris[max][max],int n);
+void mostrar(int matriz[max][max],int n);
+
+void main()
+
+{ int matriz[max][max],matris[max][max],matrix[max][max];
+	int n;
+	do
+	{
+cout<<"ingrese el tamaño de la matriz";
+cin>>n;} while(n<0 || n>max);
+cout<<"ingrese valores de la matriz 1";
+cargar(matriz,n);
+cout<<"ingrese valores de la matriz 2";
+cargar(matrix,n);
+suma(matriz,matrix,matris,n);
+cout<<"la suma de la matriz 1 y 2 es;"<<endl;
+mostrar(matris,n);
+
+
+getch();
+
+}
+void cargar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+
+{cout<<"introduzca el valor de ["<<i<<"]["<<"["<<j<<"]:"<<endl;
+	cin>>matriz[i][j];} 
+}
+}
+
+void mostrar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+	cout<<matriz[i][j]<<"\t";  
+ cout<<"\n";
+}
+}
+void suma(int matriz[max][max],int matrix[max][max],int matris[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+for(j=0;j<n;j++)
+	matris[i][j]=matriz[i][j] + matrix[i][j];
+}

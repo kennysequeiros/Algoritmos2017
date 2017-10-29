@@ -1,0 +1,48 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define max 10
+void transponer(int matriz[max][max],int n);
+void cargar(int matriz[max][max],int n);
+void mostrar(int matriz[max][max],int n);
+
+using namespace std;
+void main()
+{int n,matriz[max][max];
+cout<<"ingrese el tamaño de la matriz"<<endl;
+cin>>n;
+cargar(matriz,n);
+transponer(matriz,n);
+mostrar(matriz,n);
+	getch();
+}
+void cargar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+
+{cout<<"introduzca el valor de ["<<i<<"]["<<"["<<j<<"]:"<<endl;
+	cin>>matriz[i][j];} 
+}
+cout<<endl;}
+
+void mostrar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+	cout<<matriz[i][j]<<"\t";  
+ cout<<"\n";
+}
+cout<<endl;}
+void transponer(int matriz[max][max],int n)
+{int i,j,aux;
+
+for(i=0;i<n;i++)
+{for(j=i+1;j<n;j++)
+if(j>i)
+{aux=matriz[i][j];
+matriz[i][j]=matriz[j][i];
+matriz[j][i]=aux;
+}
+}
+}

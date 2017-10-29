@@ -1,0 +1,50 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define max 10
+void ordenar(int matriz[max][max],int n);
+void cargar(int matriz[max][max],int n);
+void mostrar(int matriz[max][max],int n);
+
+using namespace std;
+void main()
+{int n,matriz[max][max];
+cout<<"ingrese el tamaño de la matriz"<<endl;
+cin>>n;
+cargar(matriz,n);
+ordenar(matriz,n);
+mostrar(matriz,n);
+	getch();
+}
+void cargar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+
+{cout<<"introduzca el valor de ["<<i<<"]["<<"["<<j<<"]:"<<endl;
+	cin>>matriz[i][j];} 
+}
+cout<<endl;}
+
+void mostrar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+	cout<<matriz[i][j]<<"\t";  
+ cout<<"\n";
+}
+cout<<endl;}
+void ordenar(int matriz[max][max],int n)
+{int i,j,aux,p;
+for(i=0;i<n;i++)
+	for(j=0;j<n-1;j++)
+		{for(p=j+1;p<n-1;p++)
+{if(matriz[i][j]>matriz[i][p])
+	{aux=matriz[i][j];
+matriz[i][j]=matriz[i][p];
+matriz[i][p]=aux;
+
+	}
+	}
+
+}}

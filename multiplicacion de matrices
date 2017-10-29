@@ -1,0 +1,47 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define max 10
+void multiplicar(int matriz[max][max],int matrix[max][max], int matris[max][max],int n);
+void cargar(int matriz[max][max],int n);
+void mostrar(int matriz[max][max],int n);
+
+using namespace std;
+void main()
+{int n,matriz[max][max],matrix[max][max],matris[max][max];
+cout<<"ingrese el tamaño de la matriz"<<endl;
+cin>>n;
+cargar(matriz,n);
+multiplicar(matriz,matrix,matris,n);
+cargar(matrix,n);
+mostrar(matris,n);
+	getch();
+}
+void cargar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+
+{cout<<"introduzca el valor de ["<<i<<"]["<<"["<<j<<"]:"<<endl;
+	cin>>matriz[i][j];} 
+}
+cout<<endl;}
+
+void mostrar(int matriz[max][max],int n)
+{int i,j;
+for(i=0;i<n;i++)
+{for(j=0;j<n;j++)
+	cout<<matriz[i][j]<<"\t";  
+ cout<<"\n";
+}
+cout<<endl;}
+void multiplicar(int matriz[max][max],int matrix[max][max], int matris[max][max],int n)
+{
+	int i,j,k,z;
+	for(i=0; i<n; i++)
+	{for(j=0; j<n; j++)
+		{k=0;
+		for(z=0;z<n;z++)
+		{k=k+ (matriz[i][z]*matrix[z][j]);}
+	
+		matris[i][j]=k;}}}

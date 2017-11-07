@@ -1,0 +1,68 @@
+#include "Stdafx.h"
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include "conio.h"
+#include<stdlib.h>
+#define max 100
+
+using namespace std;
+
+FILE *fd;
+
+struct materiales{
+	string material;
+	string descripcion;
+	string utilidad;
+	string direcciones[max];
+}tipo_de_material;
+
+int main()
+{
+	int n;
+	string rpt;
+	system("cls");
+
+	fd = fopen("materiales.txt","wb");
+	
+	if(fd == NULL)
+	{
+		cout<<"Error al tratar de crear el archivo";
+		return 1;
+	}
+	
+	printf("\t.:MATERIALES:."); 
+	fprintf(fd,"\t.:MATERIALES:.");
+	
+	do{	
+		cout<<"\nNombre: ";    getline(cin,tipo_de_material.material);
+		cout<<"Descripcion: "; getline(cin,tipo_de_material.descripcion);
+		cout<<"utilidad: ";    getline(cin,tipo_de_material.utilidad);
+		cout<<"cuantas direcciones recomendadas desea ingresar: ";
+		cin>>n;
+		cin.ignore();
+		for(int i=0;i<n;i++)
+		{
+			cout<<"direcciones nº "<<i+1<<" : "; 
+			getline(cin,tipo_de_material.direcciones[i]);
+		}
+		
+		fprintf(fd,"\n\nNombre: "); 
+		fwrite(&tipo_de_material.material,sizeof(tipo_de_material),1,fd);
+		fprintf(fd,"\nDescripcion: ");
+		fwrite(&tipo_de_material.descripcion,sizeof(tipo_de_material),1,fd);
+		fprintf(fd,"\nutilidad: ");
+		fwrite(&tipo_de_material.utilidad,sizeof(tipo_de_material),1,fd);
+			for(int i=0;i<n;i++)
+		{
+			fprintf(fd,"\ndirecciones: ");
+			fwrite(&tipo_de_material.direcciones[i],1,sizeof(tipo_de_material.direcciones[i]),fd);
+		}
+		cout<<"Desea guardar mas datos (si) : ";
+
+		getline(cin,rpt);
+	}while(rpt == "si");
+
+	fclose(fd);	
+	return 0;
+}

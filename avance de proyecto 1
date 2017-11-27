@@ -1,0 +1,1085 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include <iostream>
+#include <string>
+#include "conio.h"
+#include "stdlib.h"
+
+#define max 100
+
+using namespace std;
+
+FILE *fd;
+FILE *fd1;
+FILE *p1;
+FILE*p2;
+
+struct t_persona{ 
+	int ID_PK;
+	int CI;
+	string Fechadenac;
+	string Genero;
+	string direccion;
+}persona;
+
+struct t_cliente{ 
+	int ID_PK;
+	int NIT;
+	string Nombre;
+	string Domicilio;
+}cliente;
+
+struct t_factura{ 
+	int persona;
+	int nro_producto;
+	int nit;
+    string Fecha;
+}factura;
+
+struct detalle_de_factura{ 
+	string empleado;
+    int Nro_Factura;
+	int cantidad;
+	int total;
+	int mate;
+}  detalle;
+
+
+//struct proyecto
+
+struct tmateriales{
+	int ID;
+	string nombre;
+	string utilidad;
+	int cantidad;
+	int precio;
+}; tmateriales material;
+
+//funciones
+void adicionarRegistromaterial();
+int menu_struct();
+void adicionarRegistrocliente();
+void listarRegistrocliente();
+void modificarRegistrocliente();
+void consultarRegistrocliente();
+void eliminarRegistrocliente();
+void adicionarRegistropersona();
+void listarRegistropersona();
+void modificarRegistropersona();
+void consultarRegistropersona();
+void eliminarRegistropersona();
+void listar_materiales(); 
+void modificar_material();
+void consultar_material();
+void eliminar_material();
+void adicionar_detalle_factura();
+int main()
+{
+	//int n;
+	string r;
+
+	int op,op2;
+
+	/*fd = fopen("materiales.txt","wb");
+	
+	if(fd == NULL)
+	{
+		cout<<"Error al tratar de crear el archivo";
+		return 1;
+	}*/
+
+	system("cls");
+
+	do{
+		cout << endl << "********** MENU PRINCIPAL **********";
+		cout << endl << "1.- Usuario";
+		cout << endl << "2.- Cliente";
+		cout << endl << "3.- Producto";
+		cout << endl << "4.- Factura";
+		cout << endl << "5.- Detalle de factura";
+		cout << endl << "6.- tipos de materiales";
+	    cout << endl << "0.- Salir";
+		cout << endl << endl;
+		do{  
+			cout << "Seleccione Opcion : ";
+			cin>>op;
+		}while(op<0 || op>6);
+
+		system("cls");
+		switch(op)
+		{
+
+	    case 0 : cout<<"\n SALIR... !!!"; 
+			     break;
+		
+		case 1 : 
+			         cout << endl << "******* MENU DE USUARIOS *******";
+			         op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : adicionarRegistropersona();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							  listarRegistropersona();
+						      system("cls");
+						      break;
+
+					 case 3 : 
+
+							  modificarRegistropersona();
+						      system("cls");
+							  break;
+
+					 case 4 : 
+
+							  consultarRegistropersona();
+						      system("cls");
+						      break;
+
+					 case 5 : 
+
+							  eliminarRegistropersona();
+						      system("cls");
+							  break;
+					 }
+
+                  break;
+		case 2 : 
+			         cout << endl << "******* MENU DE CLIENTES *******";
+					 
+					 op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : adicionarRegistrocliente();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							  listarRegistrocliente();
+							  system("cls");
+						      break;
+
+					 case 3 : 		  
+							
+							  modificarRegistrocliente();
+							  system("cls");
+							  break;
+
+					 case 4 : 
+
+							  consultarRegistrocliente();
+							  system("cls");
+						      break;
+
+					 case 5 : 
+
+							  eliminarRegistrocliente();
+							  system("cls");
+							  break;
+					 }
+
+			     break;
+
+		case 3 : 
+			         cout << endl << "******* MENU DE PRODUCTOS *******";
+				
+					 op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : //adicionarRegistroproducto();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							  //listarRegistroproducto();
+						      system("cls");
+						      break;
+
+					 case 3 : 
+
+							  //modificarRegistroproducto();
+						      system("cls");
+							  break;
+
+					 case 4 : 
+
+							  //consultarRegistroproducto();
+						      system("cls");
+						      break;
+
+					 case 5 : 
+
+							  //eliminarRegistroproducto();
+						      system("cls");
+							  break;
+					 }
+
+			     break;
+
+		case 4 : 
+			         cout << endl << "******* MENU DE FACTURAS *******";
+				
+					 op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : adicionar_detalle_factura();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							  //listarRegistrofactura();
+						      system("cls");
+						      break;
+
+					 case 3 :        
+							
+							  //modificarRegistrofactura();
+						      system("cls");
+							  break;
+
+					 case 4 : 
+
+							  //consultarRegistrofactura();
+						      system("cls");
+						      break;
+
+					 case 5 : 
+
+							  //eliminarRegistrofactura();
+						      system("cls");
+							  break;
+					 }
+
+			     break;
+
+		case 5 : 
+			         cout << endl << "******* MENU DE DETALLE DE FACTURAS *******";
+				
+					 op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : //adicionarRegistrodetfactura();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							  //listarRegistrodetfactura();
+						      system("cls");
+						      break;
+
+					 case 3 :        
+							
+							  //modificarRegistrodetfactura();
+						      system("cls");
+							  break;
+
+					 case 4 : 
+
+							  //consultarRegistrodetfactura();
+						      system("cls");
+						      break;
+
+					 case 5 : 
+
+							  //eliminarRegistrodetfactura();
+						      system("cls");
+							  break;
+					 }
+
+			     break;
+
+		 case 6 : 
+			         cout << endl << "******* MENU DE TIPOS DE MATERIALES *******";
+				
+					 op2 = menu_struct();
+					 system("cls");
+					 switch(op2)
+					 {
+					 case 1 : adicionarRegistromaterial();
+						      system("cls");
+						      break;
+
+					 case 2 : 
+
+							   listar_materiales(); 
+						      system("cls");
+						      break;
+
+					 case 3 :        
+							
+							  modificar_material();
+						      system("cls");
+							  break;
+
+					 case 4 : 
+
+							  consultar_material();
+						      system("cls");
+						      break;
+
+					 case 5 : 
+
+							  eliminar_material();
+						      system("cls");
+							  break;
+					 }
+
+			     break;
+                     
+		}
+
+	}while(op!=0);
+
+
+
+	//n = ingresar_mat(r);
+
+	
+	_getch();
+}
+
+void adicionarRegistrocliente()
+{ 
+	
+  int no_prod;  // Variable local para el numero de producto 
+ 
+  cout << "\n\rALTAS DE REGISTROS DE CLIENTES"; 
+  fd=fopen("CLIENTE.SEC","rb+"); // Intenta abrir el archivo  
+                                     // en modo de lectura/escritura 
+  if(fd==NULL) 
+    fd=fopen("CLIENTE.SEC","wb"); // Crea el archivo en caso de no 
+                                      // existir 
+  cout << "\n\n\n\rNumero de producto: "; 
+  cin >> no_prod; 
+  fread(&cliente,sizeof(cliente),1,fd); 
+  // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias" 
+  while(!feof(fd)) // Ciclo mientras no se encuentre el final del 
+                      // archivo 
+  { 
+    if(cliente.ID_PK==no_prod) 
+    { 
+       cout << "\n\n\n\rRegistro duplicado !!!"; 
+       fclose(fd); 
+       _getch(); 
+       return; 
+    } 
+    fread(&cliente,sizeof(cliente),1,fd); 
+  } 
+  cin.ignore();
+  cout<<"\n\rnro NIT: "; 
+  cin>>cliente.NIT; 
+  cout<<"\n\rNombre   : ";
+  cin.ignore();
+  getline(cin,cliente.Nombre); 
+  cout<<"\n\rDomicilio     : "; 
+  getline(cin,cliente.Domicilio); 
+
+  cliente.ID_PK=no_prod; 
+  fwrite(&cliente,sizeof(cliente),1,fd); // Grabar el Registro  
+  fclose(fd); // Cierra el archivo 
+  cout << "\n\n\n\rProducto registrado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+} 
+
+int menu_struct()
+{ int op;
+	do{
+			         cout<<"\n"<<endl;
+		             cout<<"(1) Adicionar-Insertar"<<endl;
+		             cout<<"(2) Listado"<<endl;
+		             cout<<"(3) Modificacion"<<endl;
+		             cout<<"(4) Consulta"<<endl;
+		             cout<<"(5) Borrado"<<endl;
+		             cout<<"(0) Salir"<<endl;
+		             cout<<endl;
+
+						 cout << "Seleccione Opcion : ";
+						 cin>>op;
+					 }while(op<0 || op>5);
+	return op;
+}
+
+void listarRegistrocliente() 
+{ 
+  cout << "\n\rLISTADO DE REGISTROS DE CLIENTES"; 
+  fd=fopen("CLIENTE.SEC","rb"); // Intenta abrir el archivo PRODUCTO.SEC
+                             // en modo de solo lectura 
+  if(fd==NULL) 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout<< "\n\rID_PK       NIT      Nombre       Domicilio         "<<endl; 
+  cout << "\n\r---------------------------------------------------------"<<endl; 
+  fread(&cliente,sizeof(cliente),1,fd); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+	  if(cliente.ID_PK!=0 || cliente.NIT!=0 || cliente.Nombre!="" || cliente.Domicilio!="")
+	{
+     cout<<cliente.ID_PK<<"\t""\t"<<cliente.NIT<<"\t""\t"<<cliente.Nombre<<"\t""\t"<<cliente.Domicilio<<endl; 
+	}
+	 fread(&cliente,sizeof(cliente),1,fd); 
+  } 
+  fclose(fd); // Cierra el archivo 
+  cout << "\n\r---------------------------------------------------------"; 
+  cout << "\n\rFin del listado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void modificarRegistrocliente() 
+{ 
+  int no_prod; // Variable local para el numero de producto que desea modificar //
+  cout << "\n\rMODIFICACION DE REGISTROS DE CLIENTES"; 
+  fd=fopen("CLIENTE.SEC","rb+"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(fd==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de cliente: "; 
+  cin >> no_prod; 
+  fread(&cliente,sizeof(cliente),1,fd); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(cliente.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    NIT  Nombre       Domicilio  "; 
+      cout << "\n\r------------------------------------------------------------------------"; 
+      cout<<"\n\r"<<"   "<<cliente.ID_PK<<"\t"<<cliente.NIT<<"\t"<<cliente.Nombre<<"\t\t"<<cliente.Domicilio; 
+      cout << "\n\n\n\rAnote los nuevos datos ..."; 
+      cout << "\n\rNIT: "; 
+	  cin >> cliente.NIT; 
+      cout << "\n\rNombre   : "; 
+	  cin.ignore();
+	  getline(cin,cliente.Nombre); 
+      cout << "\n\rDomicilio     : "; 
+	  getline(cin,cliente.Domicilio); 
+
+      // Es necesario reposicionar el apuntador del archivo al principio del 
+      // registro que desea modificar, ya que al leer un registro, el 
+      // apuntador se posiciona en el registro siguiente 
+      // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+      // apuntador 
+      fseek(fd,ftell(fd)-sizeof(cliente),SEEK_SET); 
+      fwrite(&cliente,sizeof(cliente),1,fd);  // Graba el registro con 
+                                       // los nuevos campos 
+      fclose(fd);   // Cierra el archivo 
+      cout << "\n\n\n\rRegistro modificado !!!"; 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch();
+      return; 
+    } 
+    fread(&cliente,sizeof(cliente),1,fd); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+} 
+
+void consultarRegistrocliente()
+{ 
+  int no_prod; // Variable local para el numero de producto que desea modificar //
+  cout << "\n\rCONSULTA DE REGISTROS DE PRODUCTOS";
+  fd=fopen("CLIENTE.SEC","rb"); // Intenta abrir el archivo PRODUCTO.SEC 
+                           
+  if(fd==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de cliente: "; 
+  cin >> no_prod; 
+  fread(&cliente,sizeof(cliente),1,fd); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(cliente.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    NIT  Nombre       Domicilio  "; 
+      cout << "\n\r------------------------------------------------------------------------"; 
+      cout<<"\n\r"<<"   "<<cliente.ID_PK<<"\t"<<cliente.NIT<<"\t"<<cliente.Nombre<<"\t\t"<<cliente.Domicilio;  
+ 
+      fseek(fd,ftell(fd)-sizeof(cliente),SEEK_SET); 
+      fwrite(&cliente,sizeof(cliente),1,fd);  // Graba el registro con 
+                                       // los nuevos campos 
+      fclose(fd);   // Cierra el archivo 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch();
+      return; 
+    } 
+    fread(&cliente,sizeof(cliente),1,fd); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void eliminarRegistrocliente()
+{ 
+  int no_prod; // Variable local para el numero de producto que desea eliminar 
+  char op; //Variable local 
+  cout << "\n\rBAJAS LOGICAS DE REGISTROS DE CLIENTES"; 
+  fd=fopen("CLIENTE.SEC","rb+"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(fd==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de producto: "; 
+  cin >> no_prod; 
+  fread(&cliente,sizeof(cliente),1,fd); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(cliente.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    NIT  Nombre       Domicilio  "; 
+      cout << "\n\r------------------------------------------------------------------------"; 
+      cout<<"\n\r"<<"   "<<cliente.ID_PK<<"\t"<<cliente.NIT<<"\t"<<cliente.Nombre<<"\t"<<cliente.NIT<<"\t\t"<<cliente.Domicilio; 
+      cliente.ID_PK=0; 
+      cliente.NIT=0; 
+      cliente.Nombre=""; 
+      cliente.Domicilio=""; 
+      do { 
+        cout << "\n\n\rEsta seguro que desea borrarlo? [S/N] ---> "; 
+        op=toupper(getche()); 
+      }while(op!='S' && op!='N'); 
+      if(op=='S') 
+		        { 
+       // Es necesario reposicionar el apuntador del archivo al principio del 
+       // registro que desea modificar, ya que al leer un registro, el 
+       // apuntador se posiciona en el registro siguiente 
+       // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+       // apuntador 
+            fseek(fd,ftell(fd)-sizeof(cliente),SEEK_SET);      
+       fwrite(&cliente,sizeof(cliente),1,fd);  // Graba el registro con 
+                                       // los nuevos campos 
+       cout << "\n\n\n\rRegistro eliminado !!!"; 
+      } 
+      fclose(fd);   // Cierra el archivo 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch(); 
+      return; 
+    } 
+    fread(&cliente,sizeof(cliente),1,fd); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void adicionarRegistropersona()
+{ 
+	
+  int no_prod;  // Variable local para el numero de producto 
+ 
+  cout << "\n\rALTAS DE REGISTROS DE PERSONAS"; 
+  fd1=fopen("PERSONA.SEC","rb+"); // Intenta abrir el archivo  
+                                     // en modo de lectura/escritura 
+  if(fd==NULL) 
+    fd1=fopen("PERSONA.SEC","wb"); // Crea el archivo en caso de no 
+                                      // existir 
+  cout << "\n\n\n\rNumero de producto: "; 
+  cin >> no_prod; 
+  fread(&persona,sizeof(persona),1,fd1); 
+  // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias" 
+  while(!feof(fd1)) // Ciclo mientras no se encuentre el final del 
+                      // archivo 
+  { 
+    if(persona.ID_PK==no_prod) 
+    { 
+       cout << "\n\n\n\rRegistro duplicado !!!"; 
+       fclose(fd1); 
+       _getch(); 
+       return; 
+    } 
+    fread(&persona,sizeof(persona),1,fd1); 
+  } 
+  cin.ignore();
+  cout<<"\n\rCI: "; 
+  cin>>persona.CI; 
+  cout<<"\n\rFecha de nacimiento   : ";
+  cin.ignore();
+  getline(cin,persona.Fechadenac); 
+  cout<<"\n\rGenero     : "; 
+  getline(cin,persona.Genero); 
+  cout<<"\n\rDireccion     : "; 
+  getline(cin,persona.direccion); 
+
+  persona.ID_PK=no_prod; 
+  fwrite(&persona,sizeof(persona),1,fd1); // Grabar el Registro  
+  fclose(fd1); // Cierra el archivo 
+  cout << "\n\n\n\rProducto registrado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void listarRegistropersona()
+{ 
+  cout << "\n\rLISTADO DE REGISTROS DE PERSONAS"; 
+  fd1=fopen("PERSONA.SEC","rb"); // Intenta abrir el archivo PRODUCTO.SEC
+                             // en modo de solo lectura 
+  if(fd1==NULL) 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout<< "\n\rID_PK            CI      Fecha de Nacimiento       Genero          Direccion    "<<endl; 
+  cout << "\n\r----------------------------------------------------------------------------"<<endl; 
+  fread(&persona,sizeof(persona),1,fd1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd1)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+	  if(persona.CI!=0 || persona.Fechadenac!="" || persona.Genero!="" || persona.direccion!="")
+	{
+     cout<<persona.ID_PK<<"\t""\t"<<persona.CI<<"\t""\t"<<persona.Fechadenac<<"\t""\t"<<persona.Genero<<"\t""\t"<<persona.direccion<<endl; 
+	}
+	 fread(&persona,sizeof(persona),1,fd1); 
+  } 
+  fclose(fd1); // Cierra el archivo 
+  cout << "\n\r-----------------------------------------------------------------------------"; 
+  cout << "\n\rFin del listado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void modificarRegistropersona()
+{ 
+  int no_prod; // Variable local para el numero de producto que desea modificar //
+  cout << "\n\rMODIFICACION DE REGISTROS DE PERSONAS"; 
+  fd1=fopen("PERSONA.SEC","rb+"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(fd1==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de ID: "; 
+  cin >> no_prod; 
+  fread(&persona,sizeof(persona),1,fd1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd1)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(persona.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    NIT  Nombre       Domicilio  "; 
+      cout << "\n\r--------------------------------------------------------------------------------------------"; 
+      cout<<"\n\r"<<"   "<<persona.ID_PK<<"\t"<<persona.CI<<"\t"<<persona.Fechadenac<<"\t\t"<<persona.Genero<<"\t\t"<<persona.direccion;
+	  cout << "\n\r--------------------------------------------------------------------------------------------"; 
+      cout << "\n\n\n\rAnote los nuevos datos ..."; 
+      cout << "\n\rCI: "; 
+	  cin >> persona.CI; 
+      cout << "\n\rFecha de nacimiento   : "; 
+	  cin.ignore();
+	  getline(cin,persona.Fechadenac); 
+      cout << "\n\rGenero     : "; 
+	  getline(cin,persona.Genero); 
+      cout << "\n\rDireccion    : "; 
+	  getline(cin,persona.direccion); 
+
+      // Es necesario reposicionar el apuntador del archivo al principio del 
+      // registro que desea modificar, ya que al leer un registro, el 
+      // apuntador se posiciona en el registro siguiente 
+      // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+      // apuntador 
+      fseek(fd1,ftell(fd1)-sizeof(persona),SEEK_SET); 
+      fwrite(&persona,sizeof(persona),1,fd1);  // Graba el registro con 
+                                       // los nuevos campos 
+      fclose(fd1);   // Cierra el archivo 
+      cout << "\n\n\n\rRegistro modificado !!!"; 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch();
+      return; 
+    } 
+    fread(&persona,sizeof(persona),1,fd1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void consultarRegistropersona()
+{ 
+  int no_prod; // Variable local para el numero de producto que desea modificar //
+  cout << "\n\rCONSULTA DE REGISTROS DE PERSONAS";
+  fd1=fopen("PERSONA.SEC","rb"); // Intenta abrir el archivo PRODUCTO.SEC 
+                           
+  if(fd1==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de cliente: "; 
+  cin >> no_prod; 
+  fread(&persona,sizeof(persona),1,fd1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd1)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(persona.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    CI  Fecha de nacimiento         Genero       Direccion  "; 
+      cout << "\n\r--------------------------------------------------------------------------------------------"; 
+      cout<<"\n\r"<<"   "<<persona.ID_PK<<"\t"<<persona.CI<<"\t"<<persona.Fechadenac<<"\t\t"<<persona.direccion;  
+      cout << "\n\r--------------------------------------------------------------------------------------------"; 
+
+      fseek(fd1,ftell(fd1)-sizeof(persona),SEEK_SET); 
+      fwrite(&persona,sizeof(persona),1,fd1);  // Graba el registro con 
+                                       // los nuevos campos 
+      fclose(fd1);   // Cierra el archivo 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch();
+      return; 
+    } 
+    fread(&persona,sizeof(persona),1,fd1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void eliminarRegistropersona()
+{ 
+  int no_prod; // Variable local para el numero de producto que desea eliminar 
+  char op; //Variable local 
+  cout << "\n\rBAJAS LOGICAS DE REGISTROS DE PERSONAS"; 
+  fd1=fopen("PERSONA.SEC","rb+"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(fd1==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    _getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de producto: "; 
+  cin >> no_prod; 
+  fread(&persona,sizeof(persona),1,fd1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(!feof(fd1)) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+    if(persona.ID_PK==no_prod) 
+    { 
+      cout << "\n\rID_PK                    CI  Fecha de nacimiento         Genero       Direccion  "; 
+      cout << "\n\r------------------------------------------------------------------------";
+      cout<<"\n\r"<<"   "<<persona.ID_PK<<"\t"<<persona.CI<<"\t"<<persona.Fechadenac<<"\t\t"<<persona.direccion;
+      persona.ID_PK=0; 
+      persona.CI=0; 
+      persona.Fechadenac=""; 
+      persona.Genero="";
+	  persona.direccion=""; 
+      do { 
+        cout << "\n\n\rEsta seguro que desea borrarlo? [S/N] ---> "; 
+        op=toupper(getche()); 
+      }while(op!='S' && op!='N'); 
+      if(op=='S') 
+		        { 
+       // Es necesario reposicionar el apuntador del archivo al principio del 
+       // registro que desea modificar, ya que al leer un registro, el 
+       // apuntador se posiciona en el registro siguiente 
+       // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+       // apuntador 
+            fseek(fd1,ftell(fd1)-sizeof(persona),SEEK_SET);      
+       fwrite(&persona,sizeof(persona),1,fd1);  // Graba el registro con 
+                                       // los nuevos campos 
+       cout << "\n\n\n\rRegistro eliminado !!!"; 
+      } 
+      fclose(fd1);   // Cierra el archivo 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      _getch(); 
+      return; 
+    } 
+    fread(&persona,sizeof(persona),1,fd1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(fd1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  _getch(); 
+  return; 
+}
+
+void adicionarRegistromaterial()
+{int ID;
+	p1=fopen("archivo.dat","r+b");
+if(p1==NULL)
+	p1=fopen("archivo.dat","wb");
+cout<<"codigo del producto :"<<endl;
+cin>>ID;
+fread(&material,sizeof(material),1,p1);
+   while(feof(p1)==false)
+     {if(material.ID==ID)
+           { cout<<" registro duplicado!!!"<<endl;
+           fclose(p1);
+             getch();
+              return;
+            }
+   fread(&material,sizeof(material),1,p1);
+  }
+   cin.ignore();
+cout<<"nombre del material :"<<endl;
+getline(cin,material.nombre);
+cout<<"utilidad :"<<endl;
+getline(cin,material.utilidad);
+cout<<"precio :"<<endl;
+cin>>material.precio;
+cout<<"cantidad disponible :"<<endl;
+cin>>material.cantidad;
+material.ID=ID;
+fwrite(&material,sizeof(material),1,p1);
+fclose(p1);
+getch(); 
+    return;
+}
+void listar_materiales() 
+{ 
+  cout << "\n\rLISTADO DE MATERIALES "; 
+  p1=fopen("archivo.dat","rb"); // Intenta abrir el archivo PRODUCTO.SEC
+                             // en modo de solo lectura 
+  if(p1==NULL) 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    getch(); 
+    return; 
+  } 
+  cout<< "\n\rNo Prod      nombre     Utilidad      Cantidad       Precio "<<endl; 
+  cout << "\n\r---------------------------------------------------------"<<endl; 
+  fread(&material,sizeof(material),1,p1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(feof(p1)==false) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+	  cout<<material.ID<<"  "<<material.nombre<<"  "<<material.utilidad<<"  "<<material.cantidad<<"   "<<material.precio<<endl; 
+    fread(&material,sizeof(material),1,p1); 
+  } 
+  fclose(p1); // Cierra el archivo 
+ cout << "\n\r---------------------------------------------------------"; 
+  cout << "\n\rFin del listado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+  return; 
+}
+void modificar_material()
+{int ID; // Variable local para el numero de producto que desea modificar //
+  cout << "\n\rMODIFICACION DE REGISTROS DE PRODUCTOS"; 
+  p1=fopen("archivo.dat","r+b"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(p1==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de producto: "; cin >>ID; 
+  fread(&material,sizeof(material),1,p1); 
+     // Lee el "material", de tamano=sizeof(material) del archivo "p1"
+  while(feof(p1)==false) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+	  if(material.ID==ID) 
+    { 
+      cout << "\n\rNo Prod                    Cantidad       Precio "; 
+      cout << "\n\r-------------------------------------------------"; 
+ 
+      cout << "\n\n\n\rAnote los nuevos datos ...";      
+	  cout << "\n\rCantidad   : "; cin >> material.cantidad; 
+	  cout << "\n\rPrecio     : "; cin >> material.precio; 
+      
+      // Es necesario reposicionar el apuntador del archivo al principio del 
+      // registro que desea modificar, ya que al leer un registro, el 
+      // apuntador se posiciona en el registro siguiente 
+      // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+      // apuntador 
+      fseek(p1,ftell(p1)-sizeof(material),SEEK_SET); 
+      fwrite(&material,sizeof(material),1,p1);  // Graba el registro con 
+                                       // los nuevos campos 
+      fclose(p1);   // Cierra el archivo 
+      cout << "\n\n\n\rMaterial modificado !!!"; 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      getch(); 
+      return; 
+    } 
+    fread(&material,sizeof(material),1,p1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(p1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+  return; 
+} 
+
+void consultar_material()
+{
+int ID; 
+  cout << "\n\rCONSULTA DE REGISTROS DE PRODUCTOS"; 
+ p1=fopen("archivo.dat","rb"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de solo lectura 
+  if(p1==NULL) 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de producto: "; cin >> ID; 
+  fread(&material,sizeof(material),1,p1);   // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias" 
+  while(feof(p1)==false)  
+  { 
+	  if(material.ID==ID) 
+    { 
+      cout << "\n\rNo Prod                     Cantidad       Precio     "; 
+      cout << "\n\r------------------------------------------------------"; 
+	  cout<<material.ID<<"   "<<material.cantidad<<"   "<<material.precio<<endl; 
+      fclose(p1); 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      getch(); 
+      return; 
+    } 
+    fread(&material,sizeof(material),1,p1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(p1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+  return; 
+}
+
+void eliminar_material()
+	{ 
+  int ID; // Variable local para el numero de producto que desea eliminar 
+  char op; //Variable local 
+  cout << "\n\rBAJAS LOGICAS DE REGISTROS DE PRODUCTOS"; 
+  p1=fopen("archivo.dat","r+b"); // Intenta abrir el archivo PRODUCTO.SEC 
+                             // en modo de lectura/escritura 
+  if(p1==NULL)  // Valida la existencia del archivo 
+  { 
+    cout << "\n\n\n\rNo existe el archivo !!!"; 
+    cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+    getch(); 
+    return; 
+  } 
+  cout << "\n\n\n\rNumero de producto: "; cin >> ID; 
+  fread(&material,sizeof(material),1,p1); 
+     // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+  while(feof(p1)==false) // Ciclo mientras no se encuentre el final del archivo 
+  { 
+	  if(material.ID==ID) 
+    {	
+	  cout << "\n\rNo Prod     nombre                Descripcion        Cantidad       Precio  "; 
+      cout << "\n\r---------------------------------------------------------------"; 
+	 cout<<material.ID<<"  "<<material.nombre<<"  "<<material.utilidad<<"  "<<material.cantidad<<"  "<<material.precio<<endl;
+	  material.ID=0; 
+	  material.cantidad=' '; 
+      material.precio=' ';
+	  material.utilidad=' ';
+	  material.nombre=' ';
+    
+      do { 
+        cout << "\n\n\rEsta seguro que desea borrarlo? [S/N] ---> "; 
+        cin>>op; 
+      }while(op!='S' && op!='N'); 
+      if(op=='S') 
+		    { 
+       // Es necesario reposicionar el apuntador del archivo al principio del 
+       // registro que desea modificar, ya que al leer un registro, el 
+       // apuntador se posiciona en el registro siguiente 
+       // La funcion ftell(alias) devuelve la posicion donde se encuentra el 
+       // apuntador 
+            fseek(p1,ftell(p1)-sizeof(material),SEEK_SET);      
+       fwrite(&material,sizeof(material),1,p1);  // Graba el registro con 
+                                       // los nuevos campos 
+       cout << "\n\n\n\rRegistro eliminado !!!"; 
+      } 
+      fclose(p1);   // Cierra el archivo 
+      cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+      getch(); 
+      return; 
+    } 
+    fread(&material,sizeof(material),1,p1); 
+  } 
+  cout << "\n\rNo se encuentra ese registro !!!"; 
+  fclose(p1); // Cierra el archivo 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+  return; 
+}
+void adicionar_detalle_factura()
+{int ap;
+
+p2=fopen("archivo.net","ab");
+if(p2==NULL)
+	p2=fopen("archivo.net","wb");
+cout<<"ingrese el codigo del producto"<<endl;
+cin>>ap;
+fread(&factura,sizeof(factura),1,p2);
+p1=fopen("archivo.dat","rb");
+fread(&material,sizeof(material),1,p1);
+while(feof(p1)==false)
+{
+	if(ap==material.ID)
+	{fclose(p1);
+		getline(cin,detalle.empleado);
+		cin>>detalle.cantidad;
+		cin>>detalle.Nro_Factura;
+		cin>>detalle.total;
+		detalle.mate=material.ID;
+		fwrite(&detalle,sizeof(detalle),1,p1);
+		fclose(p2);
+		getch();
+		return;
+		}fread(&material,sizeof(material),1,p1);
+
+
+
+}
+fclose(p1);
+fclose(p2);
+cout<<" material no diponible"<<endl;
+getch();
+return;
+
+}
